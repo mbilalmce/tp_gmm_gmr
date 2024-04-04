@@ -16,12 +16,14 @@ nbData = 200
 # Preparing the samples----------------------------------------------------------------------------------------------- #
 slist = []
 current_directory = os.path.dirname(os.path.realpath(__file__))
+data_dir = os.path.join(current_directory, '../sample_data')
+print(data_dir)
 for i in range(nbSamples):
     pmat = np.empty(shape=(nbFrames, nbData), dtype=object)
-    tempData = np.loadtxt(os.path.join(current_directory, 'sample' + str(i + 1) + '_Data.txt'), delimiter=',')
+    tempData = np.loadtxt(os.path.join(data_dir, 'sample' + str(i + 1) + '_Data.txt'), delimiter=',')
     for j in range(nbFrames):
-        tempA = np.loadtxt(os.path.join(current_directory, 'sample' + str(i + 1) + '_frame' + str(j + 1) + '_A.txt'), delimiter=',')
-        tempB = np.loadtxt(os.path.join(current_directory, 'sample' + str(i + 1) + '_frame' + str(j + 1) + '_b.txt'), delimiter=',')
+        tempA = np.loadtxt(os.path.join(data_dir, 'sample' + str(i + 1) + '_frame' + str(j + 1) + '_A.txt'), delimiter=',')
+        tempB = np.loadtxt(os.path.join(data_dir, 'sample' + str(i + 1) + '_frame' + str(j + 1) + '_b.txt'), delimiter=',')
         for k in range(nbData):
             pmat[j, k] = p(tempA[:, 3*k : 3*k + 3], tempB[:, k].reshape(len(tempB[:, k]), 1),
                            np.linalg.inv(tempA[:, 3*k : 3*k + 3]), nbStates)
